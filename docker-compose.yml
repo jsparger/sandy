@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  traefik:
+    image: traefik
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+  whoami:
+    image: emilevauge/whoami
+    container_name: whoami
