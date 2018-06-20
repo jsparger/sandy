@@ -10,6 +10,7 @@ services:
       - "8080:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - ./traefik/traefik.toml:/etc/traefik/traefik.toml
   whoami:
     image: emilevauge/whoami
     container_name: whoami
