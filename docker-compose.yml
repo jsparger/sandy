@@ -3,7 +3,6 @@ version: '3'
 services:
   traefik:
     image: traefik
-    command: --api --docker
     ports:
       - "80:80"
       - "443:443"
