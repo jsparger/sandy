@@ -26,4 +26,4 @@ services:
   proxy:
     container_name: proxy
     image: node
-    command: "npm install cors-anywhere; node node_modules/cors-anywhere/server.js"
+    command: npm install cors-anywhere; node node_modules/cors-anywhere/server.js
