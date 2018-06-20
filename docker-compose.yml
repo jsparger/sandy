@@ -13,3 +13,14 @@ services:
   whoami:
     image: emilevauge/whoami
     container_name: whoami
+  static:
+    container_name: static
+    image: trinitronx/python-simplehttpserver
+    volumes:
+      - ./static:/var/www:ro
+  gravis:
+    container_name: gravis
+    image: trinitronx/python-simplehttpserver
+    volumes:
+      - ../gravis:/var/www:ro
+
