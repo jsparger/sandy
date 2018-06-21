@@ -11,8 +11,12 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./traefik/traefik.toml:/etc/traefik/traefik.toml
   whoami:
-    image: emilevauge/whoami
     container_name: whoami
+    image: emilevauge/whoami
+  whoami2:
+    container_name: whoami2
+    image: emilevauge/whoami
+    command: "sh sleep 1000"
   static:
     container_name: static
     image: trinitronx/python-simplehttpserver
@@ -25,5 +29,6 @@ services:
       - ../gravis:/var/www:ro
   proxy:
     container_name: proxy
-    image: node
-    command: npm install cors-anywhere; node node_modules/cors-anywhere/server.js
+    image: johnsparger/cors-anywhere
+    # expose:
+    #   - "8080"
