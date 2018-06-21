@@ -30,5 +30,3 @@ services:
   proxy:
     container_name: proxy
     image: johnsparger/cors-anywhere
-    # expose:
-    #   - "8080"
