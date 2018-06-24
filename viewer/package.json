@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "main": "index.js",
   "dependencies": {
-    "gravis": "github:jsparger/gravis#modules"
+    "gravis": "github:jsparger/gravis#modules",
+    "jsoneditor": "^5.17.1"
   },
   "devDependencies": {},
   "scripts": {

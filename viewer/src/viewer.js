@@ -81,6 +81,28 @@ function ccdb_fetch_related_nodes_on_toggle(graph,vis,ccdb) {
 //   return colors[d.link_type];
 // }
 
+function update_nav(editor,ccdb) {
+  return async (d) => {
+    let safe = Object.assign({}, d)
+    delete safe.links;
+    editor.set(safe);
+    editor.setMode("form");
+    editor.expandAll();
+    openNav();
+  }
+}
+
+function openNav() {
+    document.getElementById("sidenav").style.width = "400px";
+    document.getElementById("force").style.marginRight = "400px";
+}
+
+// configure jsoneditor
+let container = document.getElementById("jsoneditor");
+let options = {};
+editor = new JSONEditor(container, options);
+
+// configure force
 let w = 1000; let h = 500;
 let graph = new gravis.Graph();
 let vis = new gravis.Vis(graph, w, h);
@@ -105,3 +127,4 @@ graph.add(root);
 vis.update();
 
 int.dispatch.on("toggle.ccdb", ccdb_fetch_related_nodes_on_toggle(graph, vis, ccdb));
+int.dispatch.on("select.nav", update_nav(editor, ccdb));

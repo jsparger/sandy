@@ -40,11 +40,37 @@
       stroke: #9ecae1;
       stroke-width: 1.5px;
     }
+    #sidenav {
+      height: 80vh;
+      width: 0;
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      right: 0;
+      /*background-color: white;*/
+      overflow-x: hidden;
+      transition: 0.5s;
+      /*padding: 16px;*/
+      padding-top: 60px;
+    }
+    #force {
+      height: 80vh;
+      /*width: 100%;*/
+      transition: margin-right .5s;
+      padding: 16px;
+      /*padding-bottom: 30px;*/
+      /*overflow-x: scroll;*/
+    }
   </style>
+  <link rel="stylesheet" type="text/css" href="./node_modules/jsoneditor/dist/jsoneditor.min.css"></head>
 <script src="./node_modules/d3/dist/d3.min.js"></script>
 <script src="./node_modules/gravis/dist/gravis.js"></script>
+<script src="./node_modules/jsoneditor/dist/jsoneditor.min.js"></script>
 </head>
 <body>
+  <div id="sidenav">
+    <div id="jsoneditor" class="jsoneditor"></div>
+  </div>
   <div id="force"></div>
   <script src=./src/viewer.js></script>
 </body>
