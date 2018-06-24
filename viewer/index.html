@@ -1,0 +1,50 @@
+<head>
+  <style>
+    #force {
+      height: 80vh;
+      /*width: 100%;*/
+      transition: margin-right .5s;
+      padding: 16px;
+      /*padding-bottom: 30px;*/
+      /*overflow-x: scroll;*/
+    }
+    .node circle {
+      cursor: pointer;
+      stroke: #3182bd;
+      fill: white;
+      stroke-width: 1.5px;
+    }
+
+    .node text {
+      font: 7px sans-serif;
+      pointer-events: none;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    .link text {
+      font: 7px sans-serif;
+      pointer-events: none;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    .link line {
+      fill: none;
+      stroke: #9ecae1;
+      stroke-width: 1.5px;
+    }
+  </style>
+<script src="./node_modules/d3/dist/d3.min.js"></script>
+<script src="./node_modules/gravis/dist/gravis.js"></script>
+</head>
+<body>
+  <div id="force"></div>
+  <script src=./src/viewer.js></script>
+</body>
