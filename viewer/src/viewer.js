@@ -124,7 +124,7 @@ act.delete_selected_node();
 let tmp_proxy_url = "http://172.18.0.4:8080"
 let proxy_url = "http://proxy.sandy.esss.lu.se";
 let ccdb_url = "https://ccdb.esss.lu.se"
-let url = `${tmp_proxy_url}/${ccdb_url}`
+let url = `${proxy_url}/${ccdb_url}`
 let cheat = "https://cors-anywhere.herokuapp.com/https://ccdb.esss.lu.se/"
 let ccdb = new CCDB(url);
 
