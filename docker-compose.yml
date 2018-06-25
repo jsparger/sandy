@@ -30,3 +30,8 @@ services:
   proxy:
     container_name: proxy
     image: johnsparger/cors-anywhere
+  viewer:
+    container_name: viewer
+    image: trinitronx/python-simplehttpserver
+    volumes:
+      - ./viewer:/var/www:ro

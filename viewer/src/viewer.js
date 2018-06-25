@@ -81,20 +81,26 @@ function ccdb_fetch_related_nodes_on_toggle(graph,vis,ccdb) {
 //   return colors[d.link_type];
 // }
 
-function update_nav(editor,ccdb) {
+function update_nav(editor, ccdb, then) {
   return async (d) => {
     let safe = Object.assign({}, d)
     delete safe.links;
     editor.set(safe);
+    editor.setName(safe.name);
     editor.setMode("form");
     editor.expandAll();
-    openNav();
+    then();
   }
 }
 
 function openNav() {
     document.getElementById("sidenav").style.width = "400px";
     document.getElementById("force").style.marginRight = "400px";
+}
+
+function closeNav() {
+    document.getElementById("sidenav").style.width = "0px";
+    document.getElementById("force").style.marginRight = "0px";
 }
 
 // configure jsoneditor
@@ -107,7 +113,7 @@ let w = 1000; let h = 500;
 let graph = new gravis.Graph();
 let vis = new gravis.Vis(graph, w, h);
 vis._sim.force("center", null)
-        .force("charge", d3.forceManyBody().strength(-100).distanceMax(300))
+        .force("charge", d3.forceManyBody().strength(-100).distanceMax(100))
 let int = new gravis.Interact(vis);
 let act = new gravis.Actions(int);
 act.highlight_selected_entity();
@@ -127,4 +133,5 @@ graph.add(root);
 vis.update();
 
 int.dispatch.on("toggle.ccdb", ccdb_fetch_related_nodes_on_toggle(graph, vis, ccdb));
-int.dispatch.on("select.nav", update_nav(editor, ccdb));
+int.dispatch.on("select.nav", update_nav(editor, ccdb, openNav));
+int.dispatch.on("deselect.nav", update_nav(editor, ccdb, ()=>{}));
