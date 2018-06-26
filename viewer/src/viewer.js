@@ -112,9 +112,10 @@ let w = 1000; let h = 500;
 let graph = new gravis.Graph();
 let vis = new gravis.Vis(graph, w, h);
 vis._sim.force("center", null)
-        .force("charge", d3.forceManyBody().strength(-300))///.distanceMax(200))
-        .force("gravity", d3.forceManyBody().strength(100).distanceMin(210))
-        .force("link", d3.forceLink().distance(50).strength(0.5))
+        .force("charge", d3.forceManyBody().strength(-300).distanceMax(200))
+        // .force("gravity", d3.forceManyBody().strength(100).distanceMin(210))
+        .force("link", d3.forceLink().distance(50).strength(1.0))
+        .force("collision", d3.forceCollide(20));
 let int = new gravis.Interact(vis);
 let act = new gravis.Actions(int);
 act.highlight_selected_entity();
@@ -157,8 +158,8 @@ d3.select('#search').on('awesomplete-selectcomplete', async () => {
   let node = await ccdb.get_slot(d3.event.text.value)
   node.type = "CCDB";
   node.id = node.name;
-  node.x = node.x || w/2;
-  node.y = node.y || h/2;
+  node.x = node.x || w/2+10;
+  node.y = node.y || h/2+10;
   graph.add(node);
   vis.update();
 });
