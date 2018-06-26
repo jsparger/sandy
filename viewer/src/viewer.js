@@ -111,11 +111,12 @@ editor = new JSONEditor(container, options);
 let w = 1000; let h = 500;
 let graph = new gravis.Graph();
 let vis = new gravis.Vis(graph, w, h);
-vis._sim.force("center", null)
-        .force("charge", d3.forceManyBody().strength(-300).distanceMax(200))
-        .force("gravity", d3.forceManyBody().strength(300).distanceMin(210))
-        .force("link", d3.forceLink().distance(50).strength(1.0))
-        .force("collision", d3.forceCollide(20));
+vis._sim.velocityDecay(0.3)
+        .force("center", null)
+        .force("charge", d3.forceManyBody().strength(-300))//.distanceMax(200))
+        .force("gravity", d3.forceManyBody().strength(300).distanceMin(250))
+        .force("link", d3.forceLink().distance(50).strength(0.3))
+        // .force("collision", d3.forceCollide(20));
 let int = new gravis.Interact(vis);
 let act = new gravis.Actions(int);
 act.highlight_selected_entity();
