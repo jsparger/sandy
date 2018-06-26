@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "main": "index.js",
   "dependencies": {
+    "awesomplete": "^1.1.2",
     "gravis": "github:jsparger/gravis#modules",
     "jsoneditor": "^5.17.1"
   },

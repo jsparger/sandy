@@ -1,4 +1,6 @@
 <head>
+  <link rel="stylesheet" type="text/css" href="./node_modules/jsoneditor/dist/jsoneditor.min.css"></head>
+  <link rel="stylesheet" type="text/css" href="./node_modules/awesomplete/awesomplete.css">
   <style>
     #force {
       height: 80vh;
@@ -53,12 +55,36 @@
       /*padding: 16px;*/
       padding-top: 60px;
     }
+    #test {
+      /* width: 80%; */
+      font-size: 16px;
+    }
+    #search {
+      width: 80%;
+      font-size: 16px;
+    }
+    .awesomplete {
+      width: 80%;
+    }
+    .awesomplete > ul {
+      width: 80%;
+      max-height: 410px;
+      overflow-y: auto;
+    }
   </style>
-  <link rel="stylesheet" type="text/css" href="./node_modules/jsoneditor/dist/jsoneditor.min.css"></head>
 <script src="./node_modules/d3/dist/d3.min.js"></script>
 <script src="./node_modules/gravis/dist/gravis.js"></script>
 <script src="./node_modules/jsoneditor/dist/jsoneditor.min.js"></script>
+<script src="./node_modules/awesomplete/awesomplete.min.js"></script>
+
+
 </head>
+<div id="test">
+  <span style="font-size:20px;cursor:pointer">
+    &#9776;
+    <input id="search", placeholder="search">
+  </span>
+</div>
 <body>
   <div id="sidenav">
     <div id="jsoneditor" class="jsoneditor"></div>

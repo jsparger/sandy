@@ -8,7 +8,8 @@ class CCDB {
   }
 
   query(url) {
-    return d3.json(url, {headers: {"origin": "localhost"}});
+    console.log(url);
+    return d3.json(url, {headers: {"origin": "localhost", "Accept": "application/json"}});
   }
 
   async get_slot(name) {
@@ -33,11 +34,9 @@ class CCDB {
   async get_slot_names() {
     if (!this._slot_names) {
       let json = await this.query(this._slot_names_url);
-      this._slot_names = [];
-      for (let slot of json.names) {
-        this._slot_names.push(slot.name);
-      }
+      this._slot_names = json.names.map(x => x.name);
     }
+    console.log("done");
     return this._slot_names;
   }
 };
@@ -113,7 +112,9 @@ let w = 1000; let h = 500;
 let graph = new gravis.Graph();
 let vis = new gravis.Vis(graph, w, h);
 vis._sim.force("center", null)
-        .force("charge", d3.forceManyBody().strength(-100).distanceMax(100))
+        .force("charge", d3.forceManyBody().strength(-300))///.distanceMax(200))
+        .force("gravity", d3.forceManyBody().strength(100).distanceMin(210))
+        .force("link", d3.forceLink().distance(50).strength(0.5))
 let int = new gravis.Interact(vis);
 let act = new gravis.Actions(int);
 act.highlight_selected_entity();
@@ -121,7 +122,7 @@ act.highlight_hover_entity();
 act.create_node_on_shift_click();
 act.delete_selected_node();
 
-let tmp_proxy_url = "http://172.18.0.4:8080"
+let tmp_proxy_url = "http://172.18.0.7:8080/"
 let proxy_url = "http://proxy.sandy.esss.lu.se";
 let ccdb_url = "https://ccdb.esss.lu.se"
 let url = `${proxy_url}/${ccdb_url}`
@@ -132,6 +133,32 @@ let root = {id: 0, name: "_ROOT", type: "CCDB", fx: w/2, fy: h/2};
 graph.add(root);
 vis.update();
 
-int.dispatch.on("toggle.ccdb", ccdb_fetch_related_nodes_on_toggle(graph, vis, ccdb));
+let toggle = ccdb_fetch_related_nodes_on_toggle(graph, vis, ccdb);
+int.dispatch.on("toggle.ccdb", toggle);
 int.dispatch.on("select.nav", update_nav(editor, ccdb, openNav));
 int.dispatch.on("deselect.nav", update_nav(editor, ccdb, ()=>{}));
+
+// configure search box
+let searchbox = document.getElementById("search");
+let awesome = null;
+searchbox.placeholder = "loading names...";
+ccdb.get_slot_names().then( (slotnames) => {
+  console.log(slotnames);
+  awesome = new Awesomplete(searchbox, {
+      list: slotnames,
+      minChars: 2,
+      maxItems: 10000,
+    });
+  searchbox.placeholder = "search";
+});
+
+d3.select('#search').on('awesomplete-selectcomplete', async () => {
+  console.log("awesomplete select");
+  let node = await ccdb.get_slot(d3.event.text.value)
+  node.type = "CCDB";
+  node.id = node.name;
+  node.x = node.x || w/2;
+  node.y = node.y || h/2;
+  graph.add(node);
+  vis.update();
+});
