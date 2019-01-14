@@ -28,8 +28,21 @@ services:
     volumes:
       - ../gravis:/var/www:ro
   proxy:
-    container_name: proxy
-    image: johnsparger/cors-anywhere
+    image: "node"
+    working_dir: /home/node/app
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./cors-anywhere-https:/home/node/app
+    expose:
+      - "443"
+    labels:
+      - traefik.frontend.entryPoints=https
+      - traefik.protocol=https
+    command: "npm start"
+  # proxy:
+  #   container_name: proxy
+  #   image: johnsparger/cors-anywhere
   viewer:
     container_name: viewer
     image: trinitronx/python-simplehttpserver
